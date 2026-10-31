@@ -1,0 +1,104 @@
+<section id="code-showcase" class="section-wrapper code-showcase-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-code"></i>
+        <span>Live Production Snippets</span>
+      </div>
+      <h2 class="section-title">SQL Code Showcase</h2>
+      <p class="section-subtitle">
+        Inspect production-tested T-SQL patterns: atomic financial stored procedures, recursive tree CTEs, analytic windowing, and covering index tuning.
+      </p>
+    </div>
+
+    <!-- Showcase Container -->
+    <div class="showcase-card code-terminal">
+      <!-- Editor Top Bar & Tabs -->
+      <div class="terminal-topbar">
+        <div class="d-flex align-items-center gap-3 overflow-auto">
+          <div class="window-dots d-none d-sm-flex">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+
+          <div class="snippet-tabs-bar">
+            @for (snippet of portfolioService.codeSnippets(); track snippet.id) {
+              <button
+                class="snippet-tab-btn"
+                [class.active]="activeTabId() === snippet.id"
+                (click)="setActiveTab(snippet.id)"
+              >
+                <i class="fa-solid fa-file-code text-cyan"></i>
+                <span>{{ snippet.tabTitle }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <span class="engine-badge d-none d-md-inline-block">
+            <i class="fa-solid fa-server me-1"></i>
+            {{ currentSnippet().engine }}
+          </span>
+
+          <button (click)="copyCode()" class="btn-copy-code" title="Copy SQL Code">
+            @if (isCopied()) {
+              <i class="fa-solid fa-check text-mint"></i>
+              <span class="text-mint">Copied!</span>
+            } @else {
+              <i class="fa-regular fa-copy"></i>
+              <span>Copy</span>
+            }
+          </button>
+        </div>
+      </div>
+
+      <!-- Snippet Summary Header -->
+      <div class="snippet-banner">
+        <div class="banner-info">
+          <h3 class="banner-title">{{ currentSnippet().title }}</h3>
+          <p class="banner-subtitle">{{ currentSnippet().subtitle }}</p>
+        </div>
+
+        <div class="banner-metrics">
+          @for (m of currentSnippet().metrics; track m.label) {
+            <div class="metric-pill">
+              <span class="lbl">{{ m.label }}:</span>
+              <span class="val" [class]="m.badgeClass">{{ m.value }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Editor Code Display -->
+      <div class="terminal-code-body">
+        <div class="line-numbers-col">
+          @for (line of codeLines(); track $index) {
+            <span>{{ $index + 1 }}</span>
+          }
+        </div>
+        <div class="code-content-col">
+          <pre><code class="language-sql">{{ currentSnippet().code }}</code></pre>
+        </div>
+      </div>
+
+      <!-- Architectural Insights Footer -->
+      <div class="terminal-insights-footer">
+        <div class="insights-title">
+          <i class="fa-solid fa-lightbulb text-amber me-2"></i>
+          <span>Database Engineering Principles In This Snippet:</span>
+        </div>
+        <div class="insights-list">
+          @for (exp of currentSnippet().explanation; track exp) {
+            <div class="insight-item">
+              <i class="fa-solid fa-circle-check text-cyan"></i>
+              <span>{{ exp }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

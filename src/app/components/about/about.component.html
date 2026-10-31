@@ -1,0 +1,89 @@
+<section id="about" class="section-wrapper about-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-user-gear"></i>
+        <span>Background &amp; Philosophy</span>
+      </div>
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">
+        Bridging business logic and physical storage through high-performance relational database design, query tuning, and transactional engineering.
+      </p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-5">
+      @for (stat of portfolioService.stats(); track stat.label) {
+        <div class="col-6 col-lg-3">
+          <div class="glass-card stat-card text-center">
+            <div class="stat-icon-wrapper">
+              <i [class]="stat.icon"></i>
+            </div>
+            <div class="stat-value">{{ stat.value }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+            <div class="stat-detail">{{ stat.detail }}</div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Main About Narrative Grid -->
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <div class="about-narrative">
+          <h3 class="narrative-heading">
+            Dedicated to <span class="text-cyan">Database Reliability</span> &amp; <br />
+            Sub-Millisecond Query Response
+          </h3>
+
+          <p class="narrative-text">
+            I am a specialized <strong>SQL Developer &amp; Database Developer</strong> with a laser focus on high-throughput database design, stored procedure logic, and deep performance tuning. While frontend interfaces evolve rapidly, the database remains the immutable single source of truth for business data.
+          </p>
+
+          <p class="narrative-text">
+            My daily work revolves around <strong>SQL Server, PostgreSQL, and MySQL</strong>—architecting 3NF normalized schemas, engineering mission-critical stored procedures with Table-Valued Parameters, and eliminating slow queries before they hit production.
+          </p>
+
+          <p class="narrative-text">
+            Whether unraveling a complex deadlock graph, turning a 45,000-read table scan into a targeted index seek, or building double-entry accounting ledgers with strict ACID guarantees, I write SQL that scales gracefully under intense transactional load.
+          </p>
+
+          <!-- Engine Badges -->
+          <div class="engine-cluster mt-4">
+            <div class="engine-tag">
+              <i class="fa-solid fa-server text-cyan"></i>
+              <span>Microsoft SQL Server</span>
+            </div>
+            <div class="engine-tag">
+              <i class="fa-solid fa-database text-blue"></i>
+              <span>PostgreSQL</span>
+            </div>
+            <div class="engine-tag">
+              <i class="fa-solid fa-database text-amber"></i>
+              <span>MySQL InnoDB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Engineering Principles Cards -->
+      <div class="col-lg-6">
+        <div class="principles-grid">
+          @for (item of corePrinciples; track item.title) {
+            <div class="glass-card principle-card">
+              <div class="card-header-flex">
+                <div class="principle-icon-box">
+                  <i [class]="item.icon"></i>
+                </div>
+                <span class="badge-tech badge-accent">{{ item.badge }}</span>
+              </div>
+              <h4 class="principle-title">{{ item.title }}</h4>
+              <p class="principle-desc">{{ item.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

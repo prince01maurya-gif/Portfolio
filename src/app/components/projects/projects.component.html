@@ -1,0 +1,85 @@
+<section id="projects" class="section-wrapper projects-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-database"></i>
+        <span>Relational Implementations</span>
+      </div>
+      <h2 class="section-title">Database &amp; SQL Projects</h2>
+      <p class="section-subtitle">
+        Enterprise database modules engineered from conceptual ER design to high-throughput stored procedures, ACID transactions, and query tuning.
+      </p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row g-4">
+      @for (project of portfolioService.projects(); track project.id) {
+        <div class="col-lg-6">
+          <div class="glass-card project-card h-100">
+            <!-- Project Top -->
+            <div class="project-header">
+              <div class="project-icon-box" [style.color]="project.color">
+                <i [class]="project.icon"></i>
+              </div>
+              <div class="project-title-area">
+                <h3 class="project-title">{{ project.name }}</h3>
+                <span class="project-tagline">{{ project.tagline }}</span>
+              </div>
+            </div>
+
+            <!-- Project Description -->
+            <p class="project-desc">{{ project.shortDescription }}</p>
+
+            <!-- Database Technologies -->
+            <div class="project-engines mb-3">
+              <span class="meta-label">Engines:</span>
+              <div class="d-flex flex-wrap gap-2">
+                @for (engine of project.dbEngine; track engine) {
+                  <span class="engine-badge">{{ engine }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- SQL Concepts Used -->
+            <div class="project-concepts mb-4">
+              <span class="meta-label">SQL Concepts:</span>
+              <div class="d-flex flex-wrap gap-2">
+                @for (concept of project.sqlConcepts.slice(0, 4); track concept) {
+                  <span class="concept-badge">{{ concept }}</span>
+                }
+                @if (project.sqlConcepts.length > 4) {
+                  <span class="concept-badge text-cyan">+{{ project.sqlConcepts.length - 4 }} more</span>
+                }
+              </div>
+            </div>
+
+            <!-- Schema Quick Stats -->
+            <div class="project-quick-stats">
+              <div class="stat-pill">
+                <i class="fa-solid fa-table me-1"></i>
+                <span>{{ project.schemaHighlights.tablesCount }} Tables</span>
+              </div>
+              <div class="stat-pill">
+                <i class="fa-solid fa-gears me-1"></i>
+                <span>{{ project.schemaHighlights.procsCount }} Procs</span>
+              </div>
+              <div class="stat-pill text-mint">
+                <i class="fa-solid fa-bolt me-1"></i>
+                <span>{{ project.schemaHighlights.optimizationGain }}</span>
+              </div>
+            </div>
+
+            <!-- Card Action Footer -->
+            <div class="project-footer mt-auto pt-3">
+              <button (click)="openProject(project)" class="btn-view-details w-100">
+                <span>View Details &amp; Schema</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

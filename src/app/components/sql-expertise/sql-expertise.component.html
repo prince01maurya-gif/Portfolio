@@ -1,0 +1,127 @@
+<section id="expertise" class="section-wrapper expertise-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-network-wired"></i>
+        <span>Full Data Flow Architecture</span>
+      </div>
+      <h2 class="section-title">Database Architecture &amp; SQL Expertise</h2>
+      <p class="section-subtitle">
+        How data flows seamlessly from high-level user actions through application layers down into ACID storage, protected by precompiled procedures and covering B-Tree indexes.
+      </p>
+    </div>
+
+    <!-- Interactive Architecture Pipeline Visualization -->
+    <div class="pipeline-container glass-card mb-5">
+      <div class="pipeline-top-header">
+        <div class="pipeline-title">
+          <i class="fa-solid fa-diagram-project text-cyan"></i>
+          <span>Interactive Execution Stack &amp; Request Flow</span>
+        </div>
+        <div class="pulse-indicator">
+          <span class="pipeline-pulse-dot"></span>
+          <span>Live Data Pipeline Active</span>
+        </div>
+      </div>
+
+      <div class="pipeline-layers-wrapper">
+        @for (layer of portfolioService.architectureLayers(); track layer.step; let last = $last) {
+          <div
+            class="pipeline-node"
+            [class.active]="activeLayer() === layer.step"
+            (click)="selectLayer(layer.step)"
+            role="button"
+          >
+            <div class="node-badge-step">0{{ layer.step }}</div>
+            <div class="node-icon-wrapper" [style.color]="layer.accent">
+              <i [class]="layer.icon"></i>
+            </div>
+            <div class="node-text">
+              <div class="node-name">{{ layer.name }}</div>
+              <div class="node-role">{{ layer.role }}</div>
+            </div>
+
+            @if (activeLayer() === layer.step) {
+              <div class="node-active-indicator">
+                <i class="fa-solid fa-caret-down"></i>
+              </div>
+            }
+          </div>
+
+          @if (!last) {
+            <div class="pipeline-connector">
+              <div class="flow-line">
+                <div class="flowing-particle"></div>
+              </div>
+              <div class="flow-arrow">
+                <i class="fa-solid fa-arrow-down-long"></i>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- Layer Detail Inspector Card -->
+      <div class="layer-detail-box">
+        @for (layer of portfolioService.architectureLayers(); track layer.step) {
+          @if (activeLayer() === layer.step) {
+            <div class="detail-content animate-fade-in">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="detail-icon" [style.color]="layer.accent">
+                  <i [class]="layer.icon"></i>
+                </div>
+                <div>
+                  <h4 class="detail-title mb-0">Layer {{ layer.step }}: {{ layer.name }}</h4>
+                  <span class="detail-subtitle">{{ layer.role }}</span>
+                </div>
+              </div>
+              <p class="detail-desc mb-0">{{ layer.details }}</p>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <!-- 4 Core Expertise Pillars Cards -->
+    <div class="row g-4 mt-2">
+      @for (pillar of portfolioService.expertisePillars(); track pillar.id) {
+        <div class="col-lg-6">
+          <div
+            class="glass-card pillar-card h-100"
+            [class.selected]="selectedPillar() === pillar.id"
+            (click)="selectPillar(pillar.id)"
+          >
+            <div class="pillar-card-header">
+              <div class="pillar-icon-box">
+                <i [class]="pillar.icon"></i>
+              </div>
+              <div class="pillar-titles">
+                <h3 class="pillar-title">{{ pillar.title }}</h3>
+                <span class="pillar-subtitle">{{ pillar.subtitle }}</span>
+              </div>
+            </div>
+
+            <p class="pillar-description">{{ pillar.description }}</p>
+
+            <div class="pillar-highlights-list">
+              <div class="list-title">Key Architectural Patterns:</div>
+              @for (item of pillar.highlights; track item) {
+                <div class="highlight-bullet">
+                  <i class="fa-solid fa-check text-cyan"></i>
+                  <span>{{ item }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="pillar-benchmark-box">
+              <i class="fa-solid fa-gauge-high text-mint me-2"></i>
+              <span class="fw-semibold text-mint">Production Impact:</span>
+              <span class="benchmark-val">{{ pillar.benchmark }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,285 @@
+<section id="architecture" class="section-wrapper architecture-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-sitemap"></i>
+        <span>Schema &amp; ER Design</span>
+      </div>
+      <h2 class="section-title">Database Architecture &amp; ER Diagrams</h2>
+      <p class="section-subtitle">
+        Visual entity-relationship topologies engineered for relational normalization, strict foreign key referential integrity, and high-frequency indexing.
+      </p>
+    </div>
+
+    <!-- Domain Switcher Tabs -->
+    <div class="domain-tabs-bar mb-4">
+      <button
+        class="domain-tab-btn"
+        [class.active]="activeDomain() === 'Security & Auth'"
+        (click)="setDomain('Security & Auth')"
+      >
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Security &amp; RBAC Architecture</span>
+        <span class="count-tag">4 Entities</span>
+      </button>
+
+      <button
+        class="domain-tab-btn"
+        [class.active]="activeDomain() === 'CRM & Billing'"
+        (click)="setDomain('CRM & Billing')"
+      >
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span>CRM &amp; Billing Ledger Architecture</span>
+        <span class="count-tag">5 Entities</span>
+      </button>
+    </div>
+
+    <!-- Main Architecture Layout: Visual ER Map + Table Column Inspector -->
+    <div class="row g-4">
+      <!-- Left: Visual Schema Node Tree -->
+      <div class="col-lg-7">
+        <div class="glass-card er-canvas-card">
+          <div class="er-canvas-header">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-circle-nodes text-cyan"></i>
+              <span class="fw-bold text-white">{{ activeDomain() }} Relational Model</span>
+            </div>
+            <span class="canvas-hint">Click entity to inspect schema</span>
+          </div>
+
+          <!-- Tree View Diagram -->
+          <div class="er-tree-diagram">
+            @if (activeDomain() === 'Security & Auth') {
+              <!-- Users -> Roles -> Permissions -> Modules -->
+              <div class="tree-root-wrapper">
+                <!-- Root: Users -->
+                <div
+                  class="er-node-box root-node"
+                  [class.selected]="selectedTableId() === 'users'"
+                  (click)="selectTable('users')"
+                >
+                  <div class="node-header">
+                    <i class="fa-solid fa-user-lock text-cyan"></i>
+                    <span class="node-name">dbo.Users</span>
+                    <span class="pk-badge">PK</span>
+                  </div>
+                  <div class="node-stats">user_id (INT) • 250K Rows</div>
+                </div>
+
+                <!-- Connector Line -->
+                <div class="vertical-connector-line"></div>
+
+                <!-- Child Level 1: Roles -->
+                <div class="tree-branches">
+                  <div
+                    class="er-node-box child-node"
+                    [class.selected]="selectedTableId() === 'roles'"
+                    (click)="selectTable('roles')"
+                  >
+                    <div class="node-header">
+                      <i class="fa-solid fa-id-badge text-blue"></i>
+                      <span class="node-name">dbo.Roles</span>
+                      <span class="fk-badge">FK</span>
+                    </div>
+                    <div class="node-stats">role_id • FK: user_id</div>
+                  </div>
+
+                  <!-- Connector from Roles to Permissions & Modules -->
+                  <div class="branch-connector-line"></div>
+
+                  <div class="sub-branches-grid">
+                    <div
+                      class="er-node-box leaf-node"
+                      [class.selected]="selectedTableId() === 'permissions'"
+                      (click)="selectTable('permissions')"
+                    >
+                      <div class="node-header">
+                        <i class="fa-solid fa-key text-amber"></i>
+                        <span class="node-name">dbo.Permissions</span>
+                        <span class="fk-badge">FK</span>
+                      </div>
+                      <div class="node-stats">perm_id • FK: role_id</div>
+                    </div>
+
+                    <div
+                      class="er-node-box leaf-node"
+                      [class.selected]="selectedTableId() === 'modules'"
+                      (click)="selectTable('modules')"
+                    >
+                      <div class="node-header">
+                        <i class="fa-solid fa-cubes text-purple"></i>
+                        <span class="node-name">dbo.Modules</span>
+                        <span class="pk-badge">PK</span>
+                      </div>
+                      <div class="node-stats">module_id • Module Catalog</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            } @else {
+              <!-- Customers -> Leads, Services, Payments, Invoices -->
+              <div class="tree-root-wrapper">
+                <!-- Root: Customers -->
+                <div
+                  class="er-node-box root-node"
+                  [class.selected]="selectedTableId() === 'customers'"
+                  (click)="selectTable('customers')"
+                >
+                  <div class="node-header">
+                    <i class="fa-solid fa-building text-cyan"></i>
+                    <span class="node-name">dbo.Customers</span>
+                    <span class="pk-badge">PK</span>
+                  </div>
+                  <div class="node-stats">customer_id (INT) • 85K Accounts</div>
+                </div>
+
+                <div class="vertical-connector-line"></div>
+
+                <!-- 4 Child Branches: Leads, Services, Payments, Invoices -->
+                <div class="crm-branches-grid">
+                  <div
+                    class="er-node-box branch-node"
+                    [class.selected]="selectedTableId() === 'leads'"
+                    (click)="selectTable('leads')"
+                  >
+                    <div class="node-header">
+                      <i class="fa-solid fa-bullseye text-amber"></i>
+                      <span class="node-name">dbo.Leads</span>
+                      <span class="fk-badge">FK</span>
+                    </div>
+                    <div class="node-stats">lead_id • Pipeline Stages</div>
+                  </div>
+
+                  <div
+                    class="er-node-box branch-node"
+                    [class.selected]="selectedTableId() === 'services'"
+                    (click)="selectTable('services')"
+                  >
+                    <div class="node-header">
+                      <i class="fa-solid fa-handshake text-blue"></i>
+                      <span class="node-name">dbo.Services</span>
+                      <span class="fk-badge">FK</span>
+                    </div>
+                    <div class="node-stats">service_id • SLA Tiers</div>
+                  </div>
+
+                  <div
+                    class="er-node-box branch-node"
+                    [class.selected]="selectedTableId() === 'payments'"
+                    (click)="selectTable('payments')"
+                  >
+                    <div class="node-header">
+                      <i class="fa-solid fa-money-bill-wave text-mint"></i>
+                      <span class="node-name">dbo.Payments</span>
+                      <span class="fk-badge">FK</span>
+                    </div>
+                    <div class="node-stats">payment_id • 950K Records</div>
+                  </div>
+
+                  <div
+                    class="er-node-box branch-node"
+                    [class.selected]="selectedTableId() === 'invoices'"
+                    (click)="selectTable('invoices')"
+                  >
+                    <div class="node-header">
+                      <i class="fa-solid fa-receipt text-purple"></i>
+                      <span class="node-name">dbo.Invoices</span>
+                      <span class="fk-badge">FK</span>
+                    </div>
+                    <div class="node-stats">invoice_id • Balance Dues</div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="er-canvas-footer">
+            <div class="legend-item">
+              <span class="pk-badge">PK</span> Primary Key (Clustered)
+            </div>
+            <div class="legend-item">
+              <span class="fk-badge">FK</span> Foreign Key (Indexed)
+            </div>
+            <div class="legend-item">
+              <i class="fa-solid fa-link text-cyan"></i> Referential Integrity ON
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Detailed Table Schema Inspector -->
+      <div class="col-lg-5">
+        <div class="glass-card table-inspector-card">
+          <div class="inspector-header">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-table text-cyan"></i>
+                <h3 class="table-title mb-0">{{ activeTable().name }}</h3>
+              </div>
+              <span class="row-estimate-pill">{{ activeTable().rowEstimate }}</span>
+            </div>
+            <p class="table-description mb-0">{{ activeTable().description }}</p>
+          </div>
+
+          <!-- Column Definition Table -->
+          <div class="inspector-columns-table">
+            <table class="columns-table">
+              <thead>
+                <tr>
+                  <th>Key</th>
+                  <th>Column Name</th>
+                  <th>Data Type</th>
+                  <th>Constraints</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (col of activeTable().columns; track col.name) {
+                  <tr>
+                    <td class="key-col">
+                      @if (col.isPk) {
+                        <span class="pk-badge">PK</span>
+                      }
+                      @if (col.isFk) {
+                        <span class="fk-badge">FK</span>
+                      }
+                    </td>
+                    <td class="col-name text-white font-mono">{{ col.name }}</td>
+                    <td class="col-type font-mono">{{ col.type }}</td>
+                    <td class="col-ref font-mono">
+                      @if (col.references) {
+                        <span class="ref-link" title="Foreign Key reference">
+                          ➔ {{ col.references }}
+                        </span>
+                      } @else if (col.isNullable === false) {
+                        <span class="text-dim">NOT NULL</span>
+                      } @else {
+                        <span class="text-dim">NULL</span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Indexes on Table -->
+          <div class="inspector-indexes">
+            <span class="index-label">
+              <i class="fa-solid fa-layer-group text-cyan me-1"></i>
+              B-Tree Indexes Configured:
+            </span>
+            <div class="d-flex flex-direction-column flex-wrap gap-2 mt-2">
+              @for (idx of activeTable().indexes; track idx) {
+                <span class="index-chip">
+                  <i class="fa-solid fa-bolt text-mint me-1"></i>
+                  {{ idx }}
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,234 @@
+<section id="home" class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <!-- Left Column: Intro & Headline -->
+      <div class="col-lg-7">
+        <div class="hero-content">
+          <!-- Availability Badge -->
+          <div class="availability-wrapper mb-4">
+            <div class="status-pill">
+              <span class="pulse-dot"></span>
+              <span>Available for opportunities</span>
+            </div>
+            <div class="status-meta">
+              <i class="fa-solid fa-bolt text-cyan"></i>
+              <span>Open for Full-Time / Contract</span>
+            </div>
+          </div>
+
+          <!-- Main Headline -->
+          <h1 class="hero-title">
+            <span class="highlight-gradient">SQL Developer</span> &amp; <br />
+            Database Developer
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="hero-subtitle">
+            Designing reliable databases, optimizing complex SQL queries, and building scalable data-driven solutions with enterprise ACID rigor.
+          </p>
+
+          <!-- Technology Badges -->
+          <div class="hero-badges mb-4">
+            @for (badge of techBadges; track badge.label) {
+              <span class="badge-tech">
+                <i [class]="badge.icon"></i>
+                <span>{{ badge.label }}</span>
+              </span>
+            }
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="hero-actions d-flex flex-wrap gap-3">
+            <button (click)="scrollToSection('projects')" class="btn-primary-glow">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>View My Work</span>
+            </button>
+
+            <button (click)="onDownloadResume()" class="btn-secondary-glow">
+              <i class="fa-solid fa-file-arrow-down"></i>
+              <span>Download Resume</span>
+            </button>
+          </div>
+
+          <!-- Quick Metrics Bar -->
+          <div class="hero-micro-metrics mt-4 pt-3">
+            <div class="metric-item">
+              <span class="metric-num">4.5+</span>
+              <span class="metric-lbl">Years Relational DBs</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-num">50+</span>
+              <span class="metric-lbl">Stored Procedures</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+              <span class="metric-num">99.9%</span>
+              <span class="metric-lbl">ACID Integrity SLA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Database Code Visualization Console -->
+      <div class="col-lg-5">
+        <div class="console-card">
+          <!-- Console Top Bar -->
+          <div class="console-topbar">
+            <div class="console-tabs">
+              <div class="window-controls">
+                <span class="win-btn win-close"></span>
+                <span class="win-btn win-min"></span>
+                <span class="win-btn win-max"></span>
+              </div>
+              <div class="console-tab-item active">
+                <i class="fa-solid fa-database text-cyan"></i>
+                <span>Portfolio_Query.sql</span>
+                <span class="tab-badge">PRODUCTION</span>
+              </div>
+            </div>
+
+            <!-- F5 Execute Button -->
+            <button
+              (click)="executeHeroQuery()"
+              [disabled]="isExecuting()"
+              class="btn-execute"
+              title="Execute SQL Query (F5)"
+            >
+              @if (isExecuting()) {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <span>Executing...</span>
+              } @else {
+                <i class="fa-solid fa-play"></i>
+                <span>Execute (F5)</span>
+              }
+            </button>
+          </div>
+
+          <!-- Query Editor View -->
+          <div class="console-editor">
+            <div class="line-numbers">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+              <span>6</span>
+              <span>7</span>
+            </div>
+            <div class="editor-code">
+              <pre><code class="language-sql"><span class="token keyword">SELECT</span>
+    <span class="token column-name">Developer</span>,
+    <span class="token column-name">Database</span>,
+    <span class="token column-name">Performance</span>
+<span class="token keyword">FROM</span> <span class="token table-name">Portfolio</span>
+<span class="token keyword">WHERE</span> <span class="token column-name">Expertise</span> <span class="token operator">=</span> <span class="token string">'SQL'</span>;</code></pre>
+            </div>
+          </div>
+
+          <!-- Console Sub-Navigation (Results / Messages / Plan) -->
+          <div class="console-result-bar">
+            <div class="result-tabs">
+              <button
+                class="res-tab-btn"
+                [class.active]="activeTab() === 'results'"
+                (click)="activeTab.set('results')"
+              >
+                <i class="fa-solid fa-table"></i> Results Grid (1)
+              </button>
+              <button
+                class="res-tab-btn"
+                [class.active]="activeTab() === 'plan'"
+                (click)="activeTab.set('plan')"
+              >
+                <i class="fa-solid fa-diagram-project"></i> Execution Plan
+              </button>
+            </div>
+            <div class="result-stats">
+              <span class="stat-pill">
+                <i class="fa-regular fa-clock"></i> {{ executionTime() }}
+              </span>
+              <span class="stat-pill text-mint">
+                <i class="fa-solid fa-check"></i> {{ rowsAffected() }} row
+              </span>
+            </div>
+          </div>
+
+          <!-- Console Output Content -->
+          <div class="console-output">
+            @if (activeTab() === 'results') {
+              <div class="grid-table-wrapper">
+                <table class="grid-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Developer</th>
+                      <th>Database</th>
+                      <th>Performance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of queryResult; track $index) {
+                      <tr>
+                        <td class="row-num">{{ $index + 1 }}</td>
+                        <td class="text-white fw-bold">
+                          <i class="fa-solid fa-user-check text-cyan me-1"></i>
+                          {{ row.Developer }}
+                        </td>
+                        <td>
+                          <span class="db-pill">{{ row.Database }}</span>
+                        </td>
+                        <td class="text-mint">
+                          <i class="fa-solid fa-bolt me-1"></i>
+                          {{ row.Performance }}
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            } @else {
+              <!-- Execution Plan Visualizer Mock -->
+              <div class="exec-plan-view">
+                <div class="plan-step">
+                  <div class="plan-node">
+                    <i class="fa-solid fa-magnifying-glass-chart text-cyan"></i>
+                    <span class="node-title">Index Seek (Clustered)</span>
+                    <span class="node-cost">Cost: 12%</span>
+                  </div>
+                  <div class="plan-arrow">➔</div>
+                  <div class="plan-node">
+                    <i class="fa-solid fa-filter text-amber"></i>
+                    <span class="node-title">Filter (SARGable)</span>
+                    <span class="node-cost">Cost: 8%</span>
+                  </div>
+                  <div class="plan-arrow">➔</div>
+                  <div class="plan-node">
+                    <i class="fa-solid fa-arrow-down-short-wide text-mint"></i>
+                    <span class="node-title">SELECT</span>
+                    <span class="node-cost">Total: 100%</span>
+                  </div>
+                </div>
+                <div class="plan-footer-note">
+                  <i class="fa-solid fa-circle-info text-cyan"></i>
+                  Estimated Rows: 1 | Actual Rows: 1 | Zero Scans
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Console Footer Status -->
+          <div class="console-footer">
+            <div class="status-left">
+              <span class="conn-dot"></span>
+              <span>Connected: DESKTOP-SQL22\\MSSQLSERVER (v16.0)</span>
+            </div>
+            <div class="status-right">
+              <span>master (dbo)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

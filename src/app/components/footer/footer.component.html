@@ -1,0 +1,80 @@
+<footer class="footer-wrapper">
+  <div class="container">
+    <div class="footer-top-grid">
+      <!-- Left: Brand & Title -->
+      <div class="footer-brand-col">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <div class="footer-logo-box">
+            <i class="fa-solid fa-database text-cyan"></i>
+          </div>
+          <span class="footer-brand-title">Alex Mercer</span>
+        </div>
+        <p class="footer-tagline">
+          SQL Developer &amp; Database Developer specializing in scalable relational database architecture, stored procedures, and sub-millisecond query optimization.
+        </p>
+      </div>
+
+      <!-- Center: Quick Jump Navigation Links -->
+      <div class="footer-nav-col">
+        <span class="col-title">Navigation</span>
+        <ul class="footer-links-list">
+          <li><a (click)="scrollToSection('home')" role="button">Home</a></li>
+          <li><a (click)="scrollToSection('about')" role="button">About</a></li>
+          <li><a (click)="scrollToSection('skills')" role="button">Skills</a></li>
+          <li><a (click)="scrollToSection('expertise')" role="button">SQL Expertise</a></li>
+          <li><a (click)="scrollToSection('projects')" role="button">Projects</a></li>
+          <li><a (click)="scrollToSection('architecture')" role="button">ER Architecture</a></li>
+          <li><a (click)="scrollToSection('contact')" role="button">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Right: Social & Back to Top -->
+      <div class="footer-connect-col">
+        <span class="col-title">Connect &amp; Profiles</span>
+        <div class="d-flex gap-2 mb-3">
+          <a
+            [href]="portfolioService.contactInfo().linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon-btn"
+            title="LinkedIn Profile"
+          >
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a
+            [href]="portfolioService.contactInfo().github"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon-btn"
+            title="GitHub Profile"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a
+            [href]="'mailto:' + portfolioService.contactInfo().email"
+            class="social-icon-btn"
+            title="Send Email"
+          >
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+
+        <button (click)="scrollToTop()" class="btn-back-to-top">
+          <i class="fa-solid fa-arrow-up"></i>
+          <span>Back to Top</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Copyright & Engine Pill -->
+    <div class="footer-bottom-bar">
+      <div class="copyright-text">
+        &copy; {{ currentYear }} Alex Mercer &mdash; SQL Developer &amp; Database Developer. All rights reserved.
+      </div>
+      <div class="built-with-tag">
+        <i class="fa-solid fa-code text-cyan me-1"></i>
+        <span>Built with Angular 19 &amp; TypeScript</span>
+      </div>
+    </div>
+  </div>
+</footer>

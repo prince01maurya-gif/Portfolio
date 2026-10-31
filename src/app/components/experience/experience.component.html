@@ -1,0 +1,103 @@
+<section id="experience" class="section-wrapper experience-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Career Trajectory</span>
+      </div>
+      <h2 class="section-title">Professional Experience</h2>
+      <p class="section-subtitle">
+        Hands-on enterprise track record architecting schemas, engineering high-throughput stored procedures, and tuning query execution plans.
+      </p>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+
+      @for (exp of portfolioService.experiences(); track exp.id; let i = $index) {
+        <div class="timeline-item" [class.current]="exp.isCurrent">
+          <!-- Timeline Marker Node -->
+          <div class="timeline-marker">
+            <div class="marker-dot">
+              <i class="fa-solid fa-database"></i>
+            </div>
+          </div>
+
+          <!-- Timeline Content Card -->
+          <div class="glass-card timeline-card">
+            <!-- Header -->
+            <div class="exp-header">
+              <div class="exp-titles">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <h3 class="exp-role">{{ exp.role }}</h3>
+                  @if (exp.isCurrent) {
+                    <span class="status-pill py-1 px-2">
+                      <span class="pulse-dot"></span>
+                      <span>Present</span>
+                    </span>
+                  }
+                </div>
+                <div class="exp-company-meta">
+                  <span class="company-name text-cyan">
+                    <i class="fa-solid fa-building me-1"></i>
+                    {{ exp.company }}
+                  </span>
+                  <span class="meta-dot">•</span>
+                  <span class="location-text">
+                    <i class="fa-solid fa-location-dot me-1"></i>
+                    {{ exp.location }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="exp-duration-badge">
+                <i class="fa-regular fa-calendar me-1"></i>
+                {{ exp.duration }}
+              </div>
+            </div>
+
+            <!-- Key Measurable Achievements -->
+            <div class="achievements-banner mt-3 mb-3">
+              <span class="ach-label">
+                <i class="fa-solid fa-trophy text-amber me-1"></i> High-Impact Results:
+              </span>
+              <div class="achievements-list">
+                @for (ach of exp.keyAchievements; track ach) {
+                  <div class="ach-item">
+                    <i class="fa-solid fa-circle-check text-mint me-1"></i>
+                    <span>{{ ach }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Detailed Responsibilities -->
+            <div class="responsibilities-block mb-3">
+              <div class="block-label">Database Responsibilities:</div>
+              <ul class="resp-list">
+                @for (resp of exp.responsibilities; track resp) {
+                  <li>
+                    <i class="fa-solid fa-check text-cyan me-2"></i>
+                    <span>{{ resp }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="exp-tech-stack">
+              <span class="stack-label">Stack:</span>
+              <div class="d-flex flex-wrap gap-2">
+                @for (tech of exp.technologies; track tech) {
+                  <span class="badge-tech">{{ tech }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

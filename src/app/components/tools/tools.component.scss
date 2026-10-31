@@ -1,0 +1,93 @@
+.tools-section {
+  position: relative;
+}
+
+.tool-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 210, 255, 0.4);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 210, 255, 0.12);
+  }
+
+  .tool-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+    .tool-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(0, 210, 255, 0.08);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+
+      .category-badge {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-muted);
+        padding: 2px 7px;
+        border-radius: 3px;
+        text-transform: uppercase;
+      }
+
+      .proficiency-badge {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--accent-mint);
+      }
+    }
+  }
+
+  &:hover .tool-icon-box {
+    transform: scale(1.1);
+    background: rgba(0, 210, 255, 0.15);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+  }
+
+  .tool-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+
+  .tool-description {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    flex: 1;
+  }
+
+  .tool-footer {
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    .tag-pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<header class="navbar-wrapper" [class.scrolled]="isScrolled()">
+  <nav class="container nav-container">
+    <!-- Brand Logo -->
+    <a (click)="scrollToSection('home')" class="brand-logo" role="button">
+      <div class="logo-icon-box">
+        <i class="fa-solid fa-database"></i>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Alex Mercer</span>
+        <span class="brand-title">SQL & DB Architect</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <ul class="nav-links d-none d-xl-flex">
+      @for (item of navItems; track item.id) {
+        <li class="nav-item">
+          <a
+            (click)="scrollToSection(item.id)"
+            [class.active]="portfolioService.activeSection() === item.id"
+            class="nav-link"
+            role="button"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Right Action CTA -->
+    <div class="nav-actions d-none d-sm-flex">
+      <button (click)="onDownloadResume()" class="btn-resume-cta">
+        <i class="fa-solid fa-file-arrow-down"></i>
+        <span>Download Resume</span>
+      </button>
+    </div>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button
+      class="mobile-toggle-btn d-xl-none"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      aria-label="Toggle navigation menu"
+    >
+      <div class="hamburger-icon" [class.open]="isMobileMenuOpen()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" [class.open]="isMobileMenuOpen()">
+    <div class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-database text-cyan"></i>
+          <span class="fw-bold text-white">Navigation</span>
+        </div>
+        <button class="drawer-close-btn" (click)="toggleMobileMenu()" aria-label="Close menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <ul class="mobile-nav-list">
+        @for (item of navItems; track item.id) {
+          <li>
+            <a
+              (click)="scrollToSection(item.id)"
+              [class.active]="portfolioService.activeSection() === item.id"
+              class="mobile-nav-link"
+              role="button"
+            >
+              <span>{{ item.label }}</span>
+              <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+          </li>
+        }
+      </ul>
+
+      <div class="mobile-drawer-footer">
+        <button (click)="onDownloadResume()" class="btn-resume-cta w-100 justify-content-center">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span>Download Resume</span>
+        </button>
+        <div class="availability-indicator mt-3 justify-content-center">
+          <span class="pulse-dot"></span>
+          <span>Available for opportunities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

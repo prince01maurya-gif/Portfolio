@@ -1,0 +1,57 @@
+<section id="skills" class="section-wrapper skills-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Technical Arsenal</span>
+      </div>
+      <h2 class="section-title">Database &amp; SQL Skills</h2>
+      <p class="section-subtitle">
+        Deep, production-tested expertise across relational engines, procedural T-SQL, query performance tuning, and advanced analytical SQL.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="skills-filter-tabs mb-5">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="filter-tab-btn"
+          [class.active]="activeCategory() === cat.id"
+          (click)="setCategory(cat.id)"
+        >
+          <i [class]="cat.icon"></i>
+          <span>{{ cat.label }}</span>
+          <span class="count-pill">{{ cat.count }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Skills Cards Grid -->
+    <div class="row g-4">
+      @for (skill of filteredSkills(); track skill.name) {
+        <div class="col-md-6 col-lg-4">
+          <div class="glass-card skill-card h-100">
+            <div class="skill-card-top">
+              <div class="skill-icon-box">
+                <i [class]="skill.icon"></i>
+              </div>
+              @if (skill.badge) {
+                <span class="skill-badge">{{ skill.badge }}</span>
+              }
+            </div>
+
+            <h3 class="skill-name">{{ skill.name }}</h3>
+            <p class="skill-desc">{{ skill.description }}</p>
+
+            <div class="skill-tags">
+              @for (kw of skill.keywords; track kw) {
+                <span class="kw-tag">{{ kw }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

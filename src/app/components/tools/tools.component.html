@@ -1,0 +1,44 @@
+<section id="tools" class="section-wrapper tools-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-toolbox"></i>
+        <span>Developer Toolchain</span>
+      </div>
+      <h2 class="section-title">Tools &amp; Database Ecosystem</h2>
+      <p class="section-subtitle">
+        The IDEs, database managers, query analyzers, and version control tools that power my daily engineering workflow.
+      </p>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="row g-3">
+      @for (tool of portfolioService.tools(); track tool.name) {
+        <div class="col-sm-6 col-lg-4">
+          <div class="glass-card tool-card h-100">
+            <div class="tool-top">
+              <div class="tool-icon-box">
+                <i [class]="tool.icon"></i>
+              </div>
+              <div class="tool-tags">
+                <span class="category-badge">{{ tool.category }}</span>
+                <span class="proficiency-badge">{{ tool.proficiency }}</span>
+              </div>
+            </div>
+
+            <h3 class="tool-name">{{ tool.name }}</h3>
+            <p class="tool-description">{{ tool.description }}</p>
+
+            <div class="tool-footer">
+              <span class="tag-pill">
+                <i class="fa-solid fa-check text-cyan me-1"></i>
+                {{ tool.tag }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

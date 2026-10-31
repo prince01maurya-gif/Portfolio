@@ -1,0 +1,247 @@
+<section id="contact" class="section-wrapper contact-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-tag">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Get In Touch</span>
+      </div>
+      <h2 class="section-title">Let's Build Better Data Solutions</h2>
+      <p class="section-subtitle">
+        Whether you need complex query optimization, relational database architecture, or high-throughput stored procedure design, let's connect.
+      </p>
+    </div>
+
+    <div class="row g-5">
+      <!-- Left Column: Contact Channels & Meta -->
+      <div class="col-lg-5">
+        <div class="contact-info-panel">
+          <h3 class="panel-heading mb-3">
+            Open for <span class="text-cyan">Full-Time</span> &amp; <br />
+            Consulting Engagements
+          </h3>
+
+          <p class="panel-desc mb-4">
+            Available for SQL Server, PostgreSQL, and MySQL opportunities. I respond promptly within 24 hours.
+          </p>
+
+          <!-- Contact Channels List -->
+          <div class="channels-list mb-4">
+            <!-- Email -->
+            <div class="glass-card channel-card">
+              <div class="channel-icon-box">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-lbl">Email Address</span>
+                <a [href]="'mailto:' + portfolioService.contactInfo().email" class="channel-val">
+                  {{ portfolioService.contactInfo().email }}
+                </a>
+              </div>
+              <button (click)="copyEmail()" class="btn-copy-sm" title="Copy email address">
+                @if (isCopiedEmail()) {
+                  <i class="fa-solid fa-check text-mint"></i>
+                } @else {
+                  <i class="fa-regular fa-copy"></i>
+                }
+              </button>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="glass-card channel-card">
+              <div class="channel-icon-box text-blue">
+                <i class="fa-brands fa-linkedin"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-lbl">LinkedIn Profile</span>
+                <a [href]="portfolioService.contactInfo().linkedin" target="_blank" rel="noopener noreferrer" class="channel-val">
+                  linkedin.com/in/alexmercer-sql
+                </a>
+              </div>
+              <a [href]="portfolioService.contactInfo().linkedin" target="_blank" rel="noopener noreferrer" class="btn-copy-sm" title="Open LinkedIn">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+
+            <!-- GitHub -->
+            <div class="glass-card channel-card">
+              <div class="channel-icon-box text-white">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-lbl">GitHub Repository</span>
+                <a [href]="portfolioService.contactInfo().github" target="_blank" rel="noopener noreferrer" class="channel-val">
+                  github.com/alexmercer-db
+                </a>
+              </div>
+              <a [href]="portfolioService.contactInfo().github" target="_blank" rel="noopener noreferrer" class="btn-copy-sm" title="Open GitHub">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+
+            <!-- Location -->
+            <div class="glass-card channel-card">
+              <div class="channel-icon-box text-amber">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-lbl">Work Location</span>
+                <span class="channel-val text-white">
+                  {{ portfolioService.contactInfo().location }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resume Download Widget -->
+          <div class="resume-download-box glass-card p-3 d-flex align-items-center justify-content-between">
+            <div>
+              <div class="fw-bold text-white small">Comprehensive SQL Resume</div>
+              <div class="text-muted small">Formatted technical CV with full project history</div>
+            </div>
+            <button (click)="onDownloadResume()" class="btn-primary-glow py-2 px-3 small">
+              <i class="fa-solid fa-file-arrow-down"></i>
+              <span>Download</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive UI Contact Form -->
+      <div class="col-lg-7">
+        <div class="glass-card form-container-card">
+          <div class="form-card-topbar mb-4">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-terminal text-cyan"></i>
+              <span class="fw-bold text-white">Dispatch Communication</span>
+            </div>
+            <div class="status-pill py-1 px-2">
+              <span class="pulse-dot"></span>
+              <span>Online &amp; Active</span>
+            </div>
+          </div>
+
+          @if (isSubmitted()) {
+            <div class="submission-success-banner mb-4 animate-fade-in">
+              <div class="d-flex align-items-center gap-3">
+                <div class="success-icon">
+                  <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div>
+                  <h4 class="mb-1 fw-bold text-white">Message Transmitted Successfully!</h4>
+                  <p class="mb-0 text-mint small">
+                    Thank you for reaching out. I have received your message and will review it shortly.
+                  </p>
+                </div>
+              </div>
+            </div>
+          }
+
+          <form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="contact-form">
+            <div class="row g-3">
+              <!-- Name Input -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="name" class="form-label">
+                    <span>Full Name</span>
+                    <span class="text-cyan">*</span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fa-regular fa-user input-icon"></i>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      [(ngModel)]="formData.name"
+                      required
+                      placeholder="e.g. Sarah Jenkins"
+                      class="form-control-custom"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email Input -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email" class="form-label">
+                    <span>Email Address</span>
+                    <span class="text-cyan">*</span>
+                  </label>
+                  <div class="input-wrapper">
+                    <i class="fa-regular fa-envelope input-icon"></i>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      [(ngModel)]="formData.email"
+                      required
+                      placeholder="e.g. sarah@company.com"
+                      class="form-control-custom"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subject Input -->
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="subject" class="form-label">Subject / Purpose</label>
+                  <div class="input-wrapper">
+                    <i class="fa-solid fa-tag input-icon"></i>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      [(ngModel)]="formData.subject"
+                      placeholder="e.g. SQL Developer Role / Database Optimization Project"
+                      class="form-control-custom"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Message Input -->
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="message" class="form-label">
+                    <span>Message Requirements</span>
+                    <span class="text-cyan">*</span>
+                  </label>
+                  <div class="input-wrapper">
+                    <textarea
+                      id="message"
+                      name="message"
+                      [(ngModel)]="formData.message"
+                      required
+                      rows="5"
+                      placeholder="Describe your database architecture needs, query tuning bottlenecks, or open roles..."
+                      class="form-control-custom textarea-custom"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-12 mt-4">
+                <button
+                  type="submit"
+                  [disabled]="isSubmitting() || !contactForm.form.valid"
+                  class="btn-primary-glow w-100 justify-content-center py-3"
+                >
+                  @if (isSubmitting()) {
+                    <i class="fa-solid fa-spinner fa-spin me-2"></i>
+                    <span>Transmitting Message...</span>
+                  } @else {
+                    <i class="fa-solid fa-paper-plane me-2"></i>
+                    <span>Send Message</span>
+                  }
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
